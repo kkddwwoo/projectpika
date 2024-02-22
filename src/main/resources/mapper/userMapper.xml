@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.post.repository.UserMapper">
+	<!-- 회원정보 등록 -->
+	<insert id="saveUser">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			select seq_user.nextval from dual
+		</selectKey>
+		insert into users (
+			id,
+			username,
+			password,
+			name,
+			gender,
+			birth_date,
+			email
+		) values (
+			#{id},
+			#{username},
+			#{password},
+			#{name},
+			#{gender},
+			#{birthDate},
+			#{email}
+		)
+	</insert>
+	
+	<!-- username 으로 회원정보 검색 -->
+	<select id="findUserByUsername" resultType="user">
+		select 
+			id,
+			username,
+			password,
+			name,
+			gender,
+			birth_date as birthDate,
+			email 
+		from 
+			users 
+		where 
+			username = #{username}
+	</select>	
+</mapper>
+
+
+
+
+
+
+
+
+
+
